@@ -5,7 +5,7 @@ import React, { Suspense } from 'react'
 
 function Page() {
   return (
-    <div className='bg-gray-50'>
+    <div className='bg-gray-50 min-h-screen'>
       <div className='mb-[30px]'>
         <Header />
       </div>

@@ -6,7 +6,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='min-h-screen'>
+    <div className='relative min-h-screen'>
 
       <div>
         <Header />
@@ -16,7 +16,7 @@ const page = () => {
         <TableView />
       </div>
 
-      <div className='-mt-[150px] bg-gray-100'>
+      <div className=' bg-gray-100'>
         <Footer />
       </div>
 

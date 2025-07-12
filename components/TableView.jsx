@@ -21,8 +21,8 @@ const TableView = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-gray-100 p-6 md:px-[100px] " style={{ fontFamily: 'Inter' }}>
-                <div className="bg-white rounded-xl shadow-sm p-6 md:px-[20px]">
+            <div className="min-h-screen bg-gray-100 p-6 flex justify-center" style={{ fontFamily: 'Inter' }}>
+                <div className="bg-white rounded-xl shadow-sm p-6 w-full max-w-6xl">
                     <h1 className="text-[24px] font-bold text-gray-800 mb-6">Your Timesheets</h1>
                     <div className="flex justify-center items-center h-64">
                         <p className='text-black'>Loading timesheet data...</p>
@@ -33,8 +33,8 @@ const TableView = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-100 p-6 md:px-[100px] justify-center items-center" style={{ fontFamily: 'Inter' }}>
-            <div className="bg-white rounded-xl shadow-sm p-6 md:px-[20px] md:max-w-6xl ">
+        <div className=" bg-gray-100 p-6 flex justify-center " style={{ fontFamily: 'Inter' }}>
+            <div className="bg-white rounded-xl shadow-sm p-6 w-full max-w-6xl">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="md:text-2xl text-md font-bold text-gray-800">Your Timesheets</h1>
                     <div className="flex gap-2">
