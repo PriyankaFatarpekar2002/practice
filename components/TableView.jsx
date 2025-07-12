@@ -34,7 +34,7 @@ const TableView = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 p-6 md:px-[100px]" style={{ fontFamily: 'Inter' }}>
-            <div className="bg-white rounded-xl shadow-sm p-6 md:px-[20px]">
+            <div className="bg-white rounded-xl shadow-sm p-6 md:px-[20px] md:max-w-6xl">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="md:text-2xl text-md font-bold text-gray-800">Your Timesheets</h1>
                     <div className="flex gap-2">
