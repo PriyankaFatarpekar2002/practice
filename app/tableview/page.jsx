@@ -6,7 +6,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='relative min-h-screen'>
+    <div className='relative min-h-screen bg-gray-100'>
 
       <div>
         <Header />

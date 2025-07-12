@@ -5,12 +5,12 @@ import React, { Suspense } from 'react'
 
 function Page() {
   return (
-    <div className='bg-gray-50 min-h-screen'>
+    <div className='bg-gray-100 min-h-screen'>
       <div className='mb-[30px]'>
         <Header />
       </div>
 
-      <div className='bg-gray-50 px-4'>
+      <div className='bg-gray-100 px-4'>
         <Suspense fallback={<div>Loading...</div>}>
           <ListView />
         </Suspense>
