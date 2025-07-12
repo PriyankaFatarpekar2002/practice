@@ -195,20 +195,7 @@ const ListView = () => {
                 <div>
                     <div className="flex items-center gap-4">
                         <h1 className="text-xl sm:text-2xl font-bold text-[#111928] mb-1 sm:mb-2">This week's timesheet</h1>
-                        <div className="flex gap-2">
-                            <button 
-                                onClick={handlePrevWeek}
-                                className="text-black bg-gray-100 font-medium text-sm hover:text-gray-900 px-3 py-1 rounded-2xl shadow-md"
-                            >
-                                Previous
-                            </button>
-                            <button 
-                                onClick={handleNextWeek}
-                                className="text-black bg-gray-100 font-medium text-sm hover:text-gray-900 px-3 py-1 rounded-2xl shadow-md"
-                            >
-                                Next 
-                            </button>
-                        </div>
+                        
                     </div>
                     <p className="text-[#6B7280] text-sm font-[400]">{getWeekRangeText()}</p>
                 </div>
