@@ -22,11 +22,11 @@ Note :
 2) have used firebase authentication -> for login 
 
 Time spent : 12 hrs
-1) Project setup & folder structure: 2 hrs
+1) Project setup & folder structure: 1 hr
 2) Login functionality: 2 hrs
 3) To Add and Fetch data (from firebase): 2 hrs
 4) Styling & responsiveness: 4 hrs
-5) User authentication flow & data binding: 1 hr
+5) User authentication flow & data binding: 2 hrs
 6) Final cleanup & documentation: 1 hr
 
 
