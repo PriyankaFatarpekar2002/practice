@@ -1,17 +1,19 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import ListView from '@/components/ListView'
-import React from 'react'
+import React, { Suspense } from 'react'
 
-function page() {
+function Page() {
   return (
-    <div className='bg-gray-50 over'>
+    <div className='bg-gray-50'>
       <div className='mb-[30px]'>
         <Header />
       </div>
 
       <div className='bg-gray-50 px-4'>
-        <ListView />
+        <Suspense fallback={<div>Loading...</div>}>
+          <ListView />
+        </Suspense>
       </div>
 
       <div className='mt-[30px]'>
@@ -21,4 +23,4 @@ function page() {
   )
 }
 
-export default page
+export default Page
