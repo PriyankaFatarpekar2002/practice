@@ -5,12 +5,12 @@ import React from 'react'
 
 function page() {
   return (
-    <div className='bg-gray-50'>
+    <div className='bg-gray-50 over'>
       <div className='mb-[30px]'>
         <Header />
       </div>
 
-      <div className='bg-gray-50'>
+      <div className='bg-gray-50 px-4'>
         <ListView />
       </div>
 

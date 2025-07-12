@@ -28,7 +28,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
+    <div className="min-h-screen flex flex-col md:flex-row"style={{ fontFamily: 'Inter' }}>
     
       <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-white relative">
         <div className="max-w-md mx-auto w-full">

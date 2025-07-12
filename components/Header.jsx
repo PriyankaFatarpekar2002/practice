@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = () => {
   return (
-    <header className="bg-white shadow-sm py-4 px-6">
+    <header className="bg-white shadow-sm py-4 px-6"style={{ fontFamily: 'Inter' }}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
 
         <div className="flex items-center space-x-4">

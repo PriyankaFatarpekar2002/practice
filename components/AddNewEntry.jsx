@@ -1,26 +1,64 @@
 'use client'
 import React, { useState } from 'react';
 import { X, HelpCircle, Plus, Minus } from 'lucide-react';
+import { db } from '@/libs/firebaseconfig';
+import { collection, addDoc } from 'firebase/firestore';
 
 export default function AddNewEntry() {
     const [formData, setFormData] = useState({
         project: '',
         workType: 'Bug fixes',
         description: '',
-        hours: 12
+        hours: 12,
+        date: new Date().toISOString().split('T')[0] // Add current date by default
     });
 
     const [isOpen, setIsOpen] = useState(true);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState(null);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-      
+        
+        // Validate required fields
+        if (!formData.project || !formData.description) {
+            setSubmitError('Please fill in all required fields');
+            return;
+        }
+
+        setIsSubmitting(true);
+        setSubmitError(null);
+
+        try {
+            // Add document to Firestore
+            const docRef = await addDoc(collection(db, "AddNewEntry"), {
+                ...formData,
+                createdAt: new Date(),
+                hours: Number(formData.hours)
+            });
+            
+            console.log("Document written with ID: ", docRef.id);
+            
+            // Reset form and close modal
+            setFormData({
+                project: '',
+                workType: 'Bug fixes',
+                description: '',
+                hours: 12,
+                date: new Date().toISOString().split('T')[0]
+            });
+            setIsOpen(false);
+            
+        } catch (error) {
+            console.error("Error adding document: ", error);
+            setSubmitError('Failed to add entry. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const handleCancel = () => {
         setIsOpen(false);
-        e
     };
 
     const incrementHours = () => {
@@ -38,13 +76,16 @@ export default function AddNewEntry() {
         setFormData(prev => ({ ...prev, hours: value }));
     };
 
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-gray-200  flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-gray-200 bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-lg shadow-xl w-full max-w-[640px] h-[560px] overflow-y-auto scrollbar-hide">
-
-
                 <div className="flex items-center justify-between p-6 border-b border-gray-200">
                     <h2 className="text-[18px] font-[600] text-[#111928]">Add New Entry</h2>
                     <button
@@ -55,8 +96,12 @@ export default function AddNewEntry() {
                     </button>
                 </div>
 
-
                 <div className="p-6 space-y-6">
+                    {submitError && (
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            <span className="block sm:inline">{submitError}</span>
+                        </div>
+                    )}
 
                     <div>
                         <label className="flex items-center gap-2 text-sm font-[500] text-[#111928] mb-2">
@@ -66,17 +111,18 @@ export default function AddNewEntry() {
                         </label>
                         <div className="relative">
                             <select
+                                name="project"
                                 value={formData.project}
-                                onChange={(e) => setFormData(prev => ({ ...prev, project: e.target.value }))}
+                                onChange={handleInputChange}
                                 className="w-full px-3 py-3 border border-gray-300 rounded-md bg-white text-[#111928] placeholder-[#6B7280] text-sm font-[500] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none"
                                 required
                             >
                                 <option value="" disabled hidden>
                                     Project Name
                                 </option>
-                                <option value="project1">Project 1</option>
-                                <option value="project2">Project 2</option>
-                                <option value="project3">Project 3</option>
+                                <option value="Project 1">Project 1</option>
+                                <option value="Project 2">Project 2</option>
+                                <option value="Project 3">Project 3</option>
                             </select>
                             <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                                 <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,9 +130,7 @@ export default function AddNewEntry() {
                                 </svg>
                             </div>
                         </div>
-
                     </div>
-
 
                     <div>
                         <label className="flex items-center gap-2 text-[#111928] placeholder-[#6B7280] text-sm font-[500] mb-2">
@@ -96,8 +140,9 @@ export default function AddNewEntry() {
                         </label>
                         <div className="relative">
                             <select
+                                name="workType"
                                 value={formData.workType}
-                                onChange={(e) => setFormData(prev => ({ ...prev, workType: e.target.value }))}
+                                onChange={handleInputChange}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white text-[#111928] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none"
                                 required
                             >
@@ -115,15 +160,15 @@ export default function AddNewEntry() {
                         </div>
                     </div>
 
-
                     <div>
                         <label className="flex items-center gap-2 text-sm font-[500] text-[#111928] mb-2">
                             Task description
                             <span className="text-[#111928] text-sm font-[500]">*</span>
                         </label>
                         <textarea
+                            name="description"
                             value={formData.description}
-                            onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                            onChange={handleInputChange}
                             placeholder="Write text here ..."
                             className="w-full px-3 py-2 border border-gray-300 rounded-md text-[#111928] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                             rows={4}
@@ -131,7 +176,6 @@ export default function AddNewEntry() {
                         />
                         <p className="text-xs text-[#6B7280] mt-1">A note for extra info</p>
                     </div>
-
 
                     <div>
                         <label className="flex items-center gap-2 text-sm font-[500] text-[#111928] mb-2">
@@ -149,6 +193,7 @@ export default function AddNewEntry() {
                             </button>
                             <input
                                 type="number"
+                                name="hours"
                                 value={formData.hours}
                                 onChange={handleHoursChange}
                                 min="0"
@@ -164,14 +209,14 @@ export default function AddNewEntry() {
                         </div>
                     </div>
 
-
                     <div className="flex gap-3 pt-4">
                         <button
                             type="button"
                             onClick={handleSubmit}
-                            className="flex-1 bg-[#1C64F2] text-white text-sm font-[500] py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none ansition-colors"
+                            disabled={isSubmitting}
+                            className={`flex-1 bg-[#1C64F2] text-white text-sm font-[500] py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none transition-colors ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                         >
-                            Add entry
+                            {isSubmitting ? 'Adding...' : 'Add entry'}
                         </button>
                         <button
                             type="button"
