@@ -18,8 +18,8 @@ Frameworks/libraries used :
 10) date-fns
 
 Note : 
-have used firestore database -> to store data 
-have used firebase authentication -> for login 
+1) have used firestore database -> to store data 
+2) have used firebase authentication -> for login 
 
 Time spent : 12 hrs
 Project setup & folder structure: 2 hrs
